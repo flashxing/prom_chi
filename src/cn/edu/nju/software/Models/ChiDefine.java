@@ -11,7 +11,7 @@ package cn.edu.nju.software.Models;
  * @Version 1.0.0
  * @Date 2013-3-20
  */
-public interface LamdaDefine {
+public interface ChiDefine {
 	public static final int MAXTASKNUM = 1001;
 	public static final int EACHLOGLENGTH = 3;
 	public static final int IDINDEX = 0;

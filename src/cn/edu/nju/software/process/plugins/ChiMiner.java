@@ -176,11 +176,11 @@ public class ChiMiner implements NodeExpander<Tuple>{
 		System.out.println(class2transition);
 		progress.inc();
 		
-		int placeNum = 0;
+		int placeNum = 1;
 		Map<Tuple, Place> tuple2place = new HashMap<Tuple, Place>();
 		// Add places for each tuple
 		for (Tuple tuple : result) {
-			Place p = net.addPlace(tuple.toString());
+			Place p = net.addPlace("P"+placeNum);
 			for (int eventClass : tuple.leftPart) {
 				net.addArc(class2transition.get(eventClass), p);
 			}
@@ -193,14 +193,14 @@ public class ChiMiner implements NodeExpander<Tuple>{
 
 		Marking m = new Marking();
 		// Add initial and final place
-		Place pstart = net.addPlace("Start");
+		Place pstart = net.addPlace("P0");
 		for (int eventId : relation.getStartTraceInfo().keySet()) {
 			String eventClass = log.getTasklist().get(eventId);
 			net.addArc(pstart, class2transition.get(eventId));
 		}
 		m.add(pstart);
 
-		Place pend = net.addPlace("End");
+		Place pend = net.addPlace("P"+(++placeNum));
 		for (int eventId : relation.getEndTraceInfo().keySet()) {
 			String eventClass = log.getTasklist().get(eventId);
 			net.addArc(class2transition.get(eventId), pend);

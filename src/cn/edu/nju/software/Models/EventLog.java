@@ -70,27 +70,27 @@ public class EventLog {
         try {
             while ((line = br.readLine()) != null){
                 String[] tasks = line.split("\t");
-                if (tasks.length != LamdaDefine.EACHLOGLENGTH){
+                if (tasks.length != ChiDefine.EACHLOGLENGTH){
                 	System.out.println("This "+line+" is invalid");
                     Log.warn("This "+line+" is invalid");
                     continue;
                 }
                 
-                if (!nameIdMap.keySet().contains(tasks[LamdaDefine.FIRSTTASKINDEX])){
-                    nameIdMap.put(tasks[LamdaDefine.FIRSTTASKINDEX], tasklist.size());
-                    tasklist.add(tasks[LamdaDefine.FIRSTTASKINDEX]);
+                if (!nameIdMap.keySet().contains(tasks[ChiDefine.FIRSTTASKINDEX])){
+                    nameIdMap.put(tasks[ChiDefine.FIRSTTASKINDEX], tasklist.size());
+                    tasklist.add(tasks[ChiDefine.FIRSTTASKINDEX]);
                 }
                 
-                int caseId = Integer.parseInt(tasks[LamdaDefine.IDINDEX]);
+                int caseId = Integer.parseInt(tasks[ChiDefine.IDINDEX]);
                 if (!this.eventlist.containsKey(caseId)){
                 	eventlist.put(caseId, new ArrayList<Integer>());
                 }
-                eventlist.get(caseId).add(nameIdMap.get(tasks[LamdaDefine.FIRSTTASKINDEX]));
+                eventlist.get(caseId).add(nameIdMap.get(tasks[ChiDefine.FIRSTTASKINDEX]));
                 
-                String[] postTasks = tasks[LamdaDefine.POSTTASKINDEX].split(",");
+                String[] postTasks = tasks[ChiDefine.POSTTASKINDEX].split(",");
                 HashSet<Integer> postTaskSet;
-                if (postTaskMap.containsKey(nameIdMap.get(tasks[LamdaDefine.FIRSTTASKINDEX]))){
-                	postTaskSet = postTaskMap.get(nameIdMap.get(tasks[LamdaDefine.FIRSTTASKINDEX]));
+                if (postTaskMap.containsKey(nameIdMap.get(tasks[ChiDefine.FIRSTTASKINDEX]))){
+                	postTaskSet = postTaskMap.get(nameIdMap.get(tasks[ChiDefine.FIRSTTASKINDEX]));
                 }else{
                 	postTaskSet = new HashSet<Integer>();
                 }
@@ -101,7 +101,7 @@ public class EventLog {
                     }
                     postTaskSet.add(nameIdMap.get(postTasks[i]));
                 }
-                postTaskMap.put(nameIdMap.get(tasks[LamdaDefine.FIRSTTASKINDEX]), postTaskSet);
+                postTaskMap.put(nameIdMap.get(tasks[ChiDefine.FIRSTTASKINDEX]), postTaskSet);
             }
             this.taskNum = tasklist.size();
             Log.debug("Load log successful!\nnameIdMap is :"+nameIdMap.toString()+"\npostTaskMap is :"+postTaskMap.toString());
@@ -157,7 +157,7 @@ public class EventLog {
 	}
     
     private int[][] calDependency(){
-        int[][] dependency = new int[LamdaDefine.MAXTASKNUM][LamdaDefine.MAXTASKNUM];
+        int[][] dependency = new int[ChiDefine.MAXTASKNUM][ChiDefine.MAXTASKNUM];
         for(int i = 0; i < taskNum; i++){
             for(int j = 0; j < taskNum; j++){
                 if ((postTaskMap.get(i) != null)&&(postTaskMap.get(i).contains(j))){
@@ -169,7 +169,7 @@ public class EventLog {
     }
     
     private int[][] calParallelism(){
-        int[][] parallelism = new int[LamdaDefine.MAXTASKNUM][LamdaDefine.MAXTASKNUM];
+        int[][] parallelism = new int[ChiDefine.MAXTASKNUM][ChiDefine.MAXTASKNUM];
         
         return parallelism;
     }

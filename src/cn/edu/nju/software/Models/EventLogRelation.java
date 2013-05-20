@@ -27,7 +27,7 @@ public class EventLogRelation {
      * 1 represent a=>wb
      * 2 represent a/->wb
      */
-    private int[][] dependency = new int[LamdaDefine.MAXTASKNUM][LamdaDefine.MAXTASKNUM];
+    private int[][] dependency = new int[ChiDefine.MAXTASKNUM][ChiDefine.MAXTASKNUM];
     
     
 	/**
@@ -46,7 +46,7 @@ public class EventLogRelation {
      * 1 represent parallelism
      * 2 represent potential parallelism
      */
-    private int[][] parallelism = new int[LamdaDefine.MAXTASKNUM][LamdaDefine.MAXTASKNUM];
+    private int[][] parallelism = new int[ChiDefine.MAXTASKNUM][ChiDefine.MAXTASKNUM];
     
     /**
      * Constructor
